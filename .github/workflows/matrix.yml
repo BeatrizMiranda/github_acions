@@ -1,5 +1,5 @@
 name: Matrix
-on: push
+on: repository_dispatch
 
 jobs: 
   node-version:

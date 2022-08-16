@@ -1,16 +1,16 @@
 name: Actions Workflow 
 
-on:
-  push:
-    branches:
-      - master
-      - "feature/**" # matches featur/featA, feature/featB, doesn't match feature/feat/a
-      - "!feature/featc"
-    tags: 
-      - v1.*
-    paths: 
-      - "**.js"
-      - "!filename.js"
+on: repository_dispatch
+  # push:
+  #   branches:
+  #     - master
+  #     - "feature/**" # matches featur/featA, feature/featB, doesn't match feature/feat/a
+  #     - "!feature/featc"
+  #   tags: 
+  #     - v1.*
+  #   paths: 
+  #     - "**.js"
+  #     - "!filename.js"
 # Cannot use paths-ignore with paths
     # paths-ignore:
     # - 'docs/**' 
