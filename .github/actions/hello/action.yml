@@ -1,0 +1,16 @@
+name: Hello actions
+author: Bea Miranda
+description: Testing
+inputs: 
+  who-to-greet: 
+    description: 'Someones name'
+    required: true
+    default: World
+
+outputs:
+  time:
+    description: 'The greeting time'
+    
+runs: 
+  using: 'node12'
+  main: 'dist/index.js'
