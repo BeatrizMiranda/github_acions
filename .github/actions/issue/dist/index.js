@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(239);
+/******/ 		return __webpack_require__(482);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -1182,40 +1182,6 @@ function _default(name, version, hashfunc) {
 /***/ (function(module) {
 
 module.exports = require("punycode");
-
-/***/ }),
-
-/***/ 239:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(470)
-const github = __webpack_require__(469)
-const { getInput, setOutput, setFailed } = core
-
-try {
-  core.debug('Debug message, only show when debbuging option is enabled')
-  core.warning('Show message in yellow')
-  core.error('Show message in red')
-  
-  const name = getInput('who-to-greet')
-  // core.setSecret(name) will mask variable 
-  console.log(`Hello ${name}!`)
-  
-  const time = new Date()
-  setOutput('time', time.toTimeString())
-  
-  // create expandable content  
-  core.startGroup('Logging github object')
-  console.log(JSON.stringify(github, null, '\t'))
-  core.endGroup()
-  
-  // Export environment variables
-  core.exportVariable('ENV_VARIABLE', 'hello')
-} catch (error) {
-  setFailed(error.message)
-}
-
-
 
 /***/ }),
 
@@ -5158,6 +5124,39 @@ Object.defineProperty(exports, "toPosixPath", { enumerable: true, get: function 
 Object.defineProperty(exports, "toWin32Path", { enumerable: true, get: function () { return path_utils_1.toWin32Path; } });
 Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: function () { return path_utils_1.toPlatformPath; } });
 //# sourceMappingURL=core.js.map
+
+/***/ }),
+
+/***/ 482:
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+
+const core = __webpack_require__(470);
+const { GitHub, context } = __webpack_require__(469);
+
+async function run() {
+  try {
+    const token = core.getInput("token");
+    const title = core.getInput("title");
+    const body = core.getInput("body");
+    const assignees = core.getInput("assignees");
+
+    const octokit = new GitHub(token);
+
+    const response = await octokit.rest.issues.addAssignees({
+      ...context.repo,
+      title,
+      body,
+      assignees: assignees ? assignees.split("\n") : undefined,
+    });
+
+    core.setOutput("issue", JSON.stringify(response.data));
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+run();
+
 
 /***/ }),
 

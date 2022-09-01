@@ -1,0 +1,29 @@
+name: Test own github action
+
+on: push
+
+jobs:
+  test-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Log create issue response
+        run: |
+          echo ${{ steps.issue.outputs.issue }}
+      - uses: ./.github/actions/hello
+        id: greet
+        with:
+          who-to-greet: "world"
+      - name: Log Greeting Time
+        run: |
+          echo "${{ steps.greet.outputs.time }}"
+          echo $ENV_VARIABLE
+      - uses: ./.github/actions/issue
+        id: issue
+        with:
+          token: ${{  secrets.GITHUB_TOKEN }}
+          title: title
+          body: body
+          assignees: |
+            beaMiranda
+            beatrizMiranda
