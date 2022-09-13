@@ -6559,7 +6559,7 @@ async function run() {
 
     const octokit = new Octokit();
 
-    const response = await octokit.rest.issues.addAssignees({
+    const response = await octokit.rest.issues.create({
       ...context.repo,
       title,
       body,
