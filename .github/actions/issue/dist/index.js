@@ -5131,7 +5131,7 @@ Object.defineProperty(exports, "toPlatformPath", { enumerable: true, get: functi
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
-const { GitHub, context } = __webpack_require__(469);
+const { context, getOctokit } = __webpack_require__(469);
 
 async function run() {
   try {
@@ -5140,7 +5140,7 @@ async function run() {
     const body = core.getInput("body");
     const assignees = core.getInput("assignees");
 
-    const octokit = new GitHub(token);
+    const octokit = getOctokit(token);
 
     const response = await octokit.rest.issues.addAssignees({
       ...context.repo,

@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const { GitHub, context } = require("@actions/github");
+const { context, getOctokit } = require("@actions/github");
 
 async function run() {
   try {
@@ -8,7 +8,7 @@ async function run() {
     const body = core.getInput("body");
     const assignees = core.getInput("assignees");
 
-    const octokit = new GitHub(token);
+    const octokit = getOctokit(token);
 
     const response = await octokit.rest.issues.addAssignees({
       ...context.repo,

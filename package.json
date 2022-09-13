@@ -2,6 +2,11 @@
   "devDependencies": {
     "@zeit/ncc": "^0.22.3"
   },
+  "scripts": {
+    "build:ci": "npm run build:actions:issue && npm run build:actions:hello",
+    "build:actions:issue": "npx ncc build .github/actions/issue/index.js -o .github/actions/issue/dist",
+    "build:actions:hello": "npx ncc build .github/actions/hello/index.js -o .github/actions/hello/dist"
+  },
   "dependencies": {
     "@actions/core": "^1.9.1",
     "@actions/github": "^5.0.3"
